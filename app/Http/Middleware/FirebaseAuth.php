@@ -37,8 +37,7 @@ class FirebaseAuth
             $firebaseuser = $this->auth->getUser($uid);
             $user = User::where('uid', $firebaseuser->uid)->first();
 
-            if ($user) {
-            } else {
+            if (!$user) {
                 // User::create([
                 //     'name' => $firebaseuser->displayName,
 
