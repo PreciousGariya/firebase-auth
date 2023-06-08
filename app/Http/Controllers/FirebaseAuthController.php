@@ -19,7 +19,7 @@ class FirebaseAuthController extends Controller
     public function __construct()
     {
         $factory = (new Factory)
-            ->withServiceAccount(__DIR__ . '/firebase_credentials.json');
+            ->withServiceAccount(base_path('/').'/firebase_credentials.json');
 
         $this->auth = $factory->createAuth();
     }

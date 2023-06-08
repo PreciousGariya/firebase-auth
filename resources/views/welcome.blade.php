@@ -3,11 +3,12 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <h5>
-            Hi, {{ auth('firebase')->user()->name }}
-        </h5>
+
         <div class="col-md-6">
             @auth('firebase')
+            <h5>
+                Hi, {{ auth('firebase')->user()->name }}
+            </h5>
             <button class="btn btn-danger" type="button" onclick="logout()">Logout</button>
 
             @else

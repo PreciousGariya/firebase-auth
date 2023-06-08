@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FirebaseAuthController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,7 @@ use App\Http\Controllers\FirebaseAuthController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/register', [FirebaseAuthController::class, 'registerpage']);
 Route::get('/login', [FirebaseAuthController::class, 'loginpage']);
 
@@ -33,6 +36,17 @@ Route::get('/', function () {
     return view('welcome');
 })->name('homepage');
 
+
+Route::get('/users', function () {
+    return User::get();
+})->name('users')->middleware('firebase.auth');
+
+Route::get('/users/profile', function () {
+    return Auth::guard('firebase')->user();
+})->name('users')->middleware('firebase.auth');
+
+
+
 Route::get('front/login', function () {
     return view('frontend.login');
 });
@@ -40,6 +54,3 @@ Route::get('front/login', function () {
 Route::get('front/register', function () {
     return view('frontend.register');
 });
-
-
-
