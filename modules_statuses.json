@@ -1,4 +1,5 @@
 {
     "Auth": false,
-    "Dashboard": true
+    "Dashboard": false,
+    "Firebase": true
 }

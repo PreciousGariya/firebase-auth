@@ -1,4 +1,4 @@
-@extends('frontend.layout')
+@extends('layouts.master')
 
 @section('content')
 <div class="container">
@@ -13,7 +13,7 @@
 
             @else
             <h1>Login</h1>
-            <a class="btn btn-primary" href="/front/login">Login</a>
+            <a class="btn btn-primary" href="/firebase">Login</a>
             @endauth
         </div>
     </div>
