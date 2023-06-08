@@ -57,9 +57,12 @@ Route::prefix('firebase')->group(function () {
 
         Route::get('/', [FirebaseLaravelAuthController::class, 'index']);
         Route::get('/register', [FirebaseLaravelAuthController::class, 'create']);
+        Route::get('/reset/password', [FirebaseLaravelAuthController::class, 'resetPass'])->name('laravel.auth.reset.page');
 
         Route::post('/auth/register', [FirebaseLaravelAuthController::class, 'register'])->name('laravel.auth.register.strore');
         Route::post('/auth/login', [FirebaseLaravelAuthController::class, 'login'])->name('laravel.auth.login.store');
+        Route::post('/reset/password', [FirebaseLaravelAuthController::class, 'reset'])->name('laravel.auth.reset.password');
+
         Route::post('/auth/logout', [FirebaseLaravelAuthController::class, 'logout'])->name('laravel.auth.logout');
 
     });

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Module Auth</title>
+    <title>Firebase | Auth Module</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
     {{-- Laravel Vite - CSS File --}}
@@ -42,6 +42,21 @@
     </script>
 
     <script>
+        //forgotpassword
+        function resetPassword() {
+            var userEmail = prompt("Please enter your email address:");
+
+            firebase.auth().sendPasswordResetEmail(userEmail)
+                .then(function() {
+                    // Password reset email sent successfully
+                    console.log('Password reset email sent');
+                })
+                .catch(function(error) {
+                    // An error occurred while sending password reset email
+                    console.error(error);
+                });
+        }
+
         // Phone number verification
         function verifyPhoneNumber() {
             var phoneNumber = document.getElementById('phone-input').value;
@@ -200,18 +215,18 @@
                 .then(function() {
                     console.log("User logged out");
                     // Logout successful
-                    axios.post('/firebase/verify/logout')
-                        .then(function(response) {
-                            // Request successful, do something with the response
-                            console.log(response.data);
-                            if (response.data.status == true) {
-                                window.location.href = "/front/login";
-                            }
-                        })
-                        .catch(function(error) {
-                            // Request failed, handle the error
-                            console.error(error);
-                        });
+                    // axios.post('/firebase/verify/logout')
+                    //     .then(function(response) {
+                    //         // Request successful, do something with the response
+                    //         console.log(response.data);
+                    //         if (response.data.status == true) {
+                    //             window.location.href = "/front/login";
+                    //         }
+                    //     })
+                    //     .catch(function(error) {
+                    //         // Request failed, handle the error
+                    //         console.error(error);
+                    //     });
                 })
                 .catch(function(error) {
                     // Logout failed, handle the error
@@ -225,7 +240,12 @@
 
 <body>
     <div class="row">
-
+        @if ($message = Session::get('success'))
+        <div class="alert alert-info alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+        @endif
         @if ($errors->any())
         <div class="alert alert-danger">
             <ul>

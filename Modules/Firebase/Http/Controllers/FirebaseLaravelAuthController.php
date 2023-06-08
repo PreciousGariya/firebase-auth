@@ -38,6 +38,11 @@ class FirebaseLaravelAuthController extends Controller
         return view('firebase::laravel_auth.register');
     }
 
+    //resetpassword page view
+    public function resetPass()
+    {
+        return view('firebase::laravel_auth.reset');
+    }
     // Registration of user on Server Level
     public function register(Request $request)
     {
@@ -61,7 +66,7 @@ class FirebaseLaravelAuthController extends Controller
                     'token' => $token
                 ]);
                 Auth::guard('firebase')->login($user);
-                return redirect('firebase/dashboard');
+                return redirect('firebase/dashboard')->with('success','Registered successfully!');
             }
             // Handle the registered user
         } catch (FirebaseException $e) {
@@ -91,11 +96,24 @@ class FirebaseLaravelAuthController extends Controller
                     'remember_token' => $request->token
                 ]);
                 Auth::guard('firebase')->login($user);
-                return redirect('firebase/dashboard');
+                return redirect('firebase/dashboard')->with('success','Login successfully!');;;
             }
             // Handle the authenticated user
         } catch (FirebaseException $e) {
             // Authentication failed
+            Log::error($e);
+            return back()->withErrors([
+                'email' => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public function reset(Request $request)
+    {
+        try {
+            $this->auth->sendPasswordResetLink($request->email);
+            return redirect('firebase/laravel-auth')->with('success','Reset Password Email Sent successfully!');;;
+        } catch (FirebaseException $e) {
             Log::error($e);
             return back()->withErrors([
                 'email' => $e->getMessage(),

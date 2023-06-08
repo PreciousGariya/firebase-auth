@@ -42,6 +42,7 @@
 
                                     <div id="user-status"></div>
                                 </div>
+                                <button class="btn btn-danger" onclick="resetPassword()">Reset Password</button>
                             </div>
                         </div>
                         <div class="col-md-5 ps-0 d-none d-md-block">

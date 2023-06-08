@@ -9,7 +9,7 @@
                     <div class="row">
                         <div class="col-md-7 pe-0">
                             <div class="form-left h-100 py-5 px-5">
-                                <form action="{{route('laravel.auth.login.store')}}" method="post" class="row g-4">
+                                <form action="{{route('laravel.auth.reset.password')}}" method="post" class="row g-4">
                                     <div class="col-12">
                                         @csrf
                                         <label>Email<span class="text-danger">*</span></label>
@@ -19,26 +19,6 @@
 
                                         </div>
                                     </div>
-
-                                    <div class="col-12">
-                                        <label>Password<span class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                            <div class="input-group-text"><i class="bi bi-lock-fill"></i></div>
-                                            <input type="password" name="password" class="form-control" placeholder="Enter Password">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="inlineFormCheck">
-                                            <label class="form-check-label" for="inlineFormCheck">Remember me</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-6">
-                                        <a href="{{route('laravel.auth.reset.page')}}" class="float-end text-primary">Forgot Password?</a>
-                                    </div>
-
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-danger px-4 float-end mt-4">Login</button>
                                     </div>
@@ -49,7 +29,7 @@
                         <div class="col-md-5 ps-0 d-none d-md-block">
                             <div class="form-right h-100 bg-primary text-white text-center pt-5">
                                 <i class="bi bi-bootstrap"></i>
-                                <h2 class="fs-1">Login</h2>
+                                <h2 class="fs-1">Reset Password</h2>
                             </div>
                         </div>
                     </div>
