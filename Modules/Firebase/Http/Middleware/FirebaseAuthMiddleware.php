@@ -40,12 +40,14 @@ class FirebaseAuthMiddleware
             return response()->json($firebaseuser = $this->auth->getUser($uid));
             $user = User::where('uid', $firebaseuser->uid)->first();
 
+            //you can create user
             if (!$user) {
                 // User::create([
                 //     'name' => $firebaseuser->displayName,
 
                 // ]);
             }
+            //custom guard for firebase auth
             Auth::guard('firebase')->login($user);
             return $next($request);
         } catch (FailedToVerifyToken $e) {
