@@ -17,6 +17,7 @@
                                             <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
                                             <input type="text" id="name" name="name" class="form-control" placeholder="Enter Name" required>
                                         </div>
+                                        <span id="name-error" class="error text-danger"></span>
                                     </div>
                                     <div class="col-12">
                                         <label>Email<span class="text-danger">*</span></label>
@@ -24,6 +25,8 @@
                                             <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
                                             <input type="email" id="email" name="email" class="form-control" placeholder="Enter email" required>
                                         </div>
+                                        <span id="email-error" class="error text-danger"></span>
+
                                     </div>
 
                                     <div class="col-12">
@@ -32,10 +35,13 @@
                                             <div class="input-group-text"><i class="bi bi-lock-fill"></i></div>
                                             <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password" required>
                                         </div>
+                                        <span id="password-error" class="error text-danger"></span>
                                     </div>
                                     <div class="col-12">
                                         <button type="button" onclick="register()" class="btn btn-danger px-4 float-end mt-4"><i class="bi bi-google"></i> Register</button>
                                     </div>
+
+                                    <div id="user-status"></div>
                                 </form>
                             </div>
                         </div>

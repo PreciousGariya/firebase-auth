@@ -30,19 +30,51 @@ To integrate Firebase authentication with the Laravel Login module, follow these
 
 10. Select "Service accounts" from the left menu.
 
-11. Under the "Firebase Admin SDK" tab, click on "Generate new private key."
+11. Under the "**Firebase Admin SDK**" tab, click on "**Generate new private key.**"
 
-12. This will download the `credentials.json` file containing your Firebase credentials.
+12. This will download the `test-firebase-adminsdk-x6xmu.json` file with similar name that containing your Firebase credentials.
+13. open `test-firebase-adminsdk-x6xmu.json` file and `CTRL+A` `CTRL+C` and open 
+```
+<project-directory>/firebase_credentials.json
+```
+
+ file available in root directory `CTRL+V` and **Save**.
+ 
 
 ## Frontend JavaScript SDK Credentials
 
-To use the Firebase JavaScript SDK with the Laravel Login module, follow these steps:
+To use the Firebase JavaScript SDK with Javascript, follow these steps:
 
-1. After downloading the `credentials.json` file, place it in a secure location within your project directory.
+1. Go to the [Firebase Console](https://console.firebase.google.com) and sign in with your Google account.
 
-2. Include the Firebase JavaScript library in your project either through npm or via CDN.
+2. Create a new Firebase project or select an existing one.
 
-3. Initialize Firebase in your frontend JavaScript code using the credentials from the `credentials.json` file.
+3. Navigate to the project settings by clicking on the gear icon.
+
+4. Under the "General" tab, scroll down to the "Your apps" section **SDK setup and configuration**
+the given configuration details are dummy -
+```
+const firebaseConfig = {
+  apiKey: "AIzaSyAeZq7a_makByAoubBeXGdYi8",
+  authDomain: "test-pro-3hhf92.firebaseapp.com",
+  projectId: "test-pro-3hhf92",
+  storageBucket: "test-pro-3hhf92.appspot.com",
+  messagingSenderId: "00000",
+  appId: "1:00000:web:9999",
+  measurementId: "G-HFATGVDJ"
+};
+```
+- Copy & Paste the respective value to `.env` file like following
+```
+API_KEY =AIzaSyAeZq7a_makByAoubBeXGdYi8
+AUTH_DOMAIN =test-pro-3hhf92.firebaseapp.com
+PROJECT_ID =test-pro-3hhf92
+STORAGE_BUCKET =test-pro-3hhf92.appspot.com
+MESSAGING_SENDER_ID =00000
+APP_ID =1:00000:web:9999
+MEASUREMENT_ID =G-HFATGVDJ
+
+```
 
 ## System Requirements
 
@@ -104,13 +136,109 @@ Follow these steps to install Laravel and set up the Laravel Login module:
     npm install
 
     ```
-9. Start the development server by running the command:
+9. Creating a Virtual Host for Firebase Authentication:
+To integrate Firebase Authentication with your Laravel application, you need to set up a virtual host in Ubuntu that uses a domain name (e.g., firebaseauth.test) instead of the default 127.0.0.1:8000. Here's how you can create a virtual host for Firebase Authentication:
+
+in Windows you can directly acces via localhost/<project-direcoty>/public
+- The `sh` file is available on the same directory 
+Open terminel in root directory of this project and run
 
     ```
-    php artisan serve
+    sudo sh vhost.sh
+
+    ```
+ - After run it will ask name of virtual
+
+   ```
+    enter the name of virtual host you want to create
+    firebase.test
+
+   ```
+    ```
+    enter the root path of your project
+    /var/www/html/<project-direcoty>/public
+    ```
+    ```
+    set `APP_URL` in `.env` file
+    APP_URL=http://firebase.test
+
+   ```
+   ```
+    set `APP_URL` in `.env` file [windows]
+    APP_URL=http://localhost/<project-directory>/public
+   ```
+
+
+9. Access your Laravel application at the virtualhost or localhost/<project-directory>/public URL.:
+
+    ```
+    http://firebase.test/
 
     ```
 10. Access your Laravel application at the specified URL.
+
+## Creating a Facebook App for Facebook Login in Firebase Auth
+Follow these steps to create a Facebook app and configure Facebook Login for Firebase Authentication:
+
+1. **Go to the Facebook Developers website:** Visit the Facebook Developers website and log in using your Facebook account credentials.
+
+2. **Create a new app:** Click on the "**My Apps**" dropdown menu in the top-right corner and select "**Create App**" from the options.
+
+3. **Choose a platform:** Select the platform that aligns with your project requirements. For this integration, choose "**WWW**."
+
+4. **Provide app details:** Enter an app name in the "**Display Name**" field. Optionally, provide additional information such as a contact email and privacy policy URL.
+
+4. **Create the app:** Click on the "**Create App**" button to create your Facebook app.
+
+5. **Configure the app settings:** Navigate to the "**Settings**" section in the left sidebar. Customize your app settings as needed.
+
+6. **Add Facebook Login product:** Under the "**Products**" section, click on "**Facebook Login**," and then click "**Set Up**" under the "**Web**" category.
+
+7. **Configure Facebook Login settings:** Provide the necessary information to integrate Facebook Login with Firebase Authentication.
+
+- a. *Enter your app's URL in the "**Valid OAuth Redirect URIs**" field using the Firebase-specific redirect URL pattern: `https://<PROJECT_ID>.firebaseapp.com/__/auth/handler`.*
+
+- b. *In the "Client OAuth Settings" section, enter the same redirect URL in the "Valid OAuth Redirect URIs" field.
+
+- c. *Enable "Client OAuth Login" and "Web OAuth Login" options.*
+
+- d. *Save the changes.*
+
+8. **Retrieve App ID and App Secret:** Under "**Settings**" in the "Facebook Login" section, find your App ID and App Secret. Keep these credentials secure.
+
+9. **Configure Facebook Login in Firebase Console:** Open the Firebase console and select your project.
+
+10. **Enable Facebook Login:** In the left sidebar, click on "**Authentication**" and select the "Sign-in method" tab. Enable Facebook as a sign-in provider.
+
+11. **Enter App ID and App Secret in:** In the "**Facebook Login**" section, enter your App ID and App Secret obtained from the Facebook Developers website.
+
+12. **Save the settings:** Click "**Save**" to save the Facebook Login configuration and mention the credentials on `.env`.
+ ```
+  FACEBOOK_APP_ID = your-facebook-app-id
+ ```
+
+## Creating a Twitter App for Twitter Login in Firebase Auth
+1. **Go to the Twitter Developer Portal:** Visit the Twitter Developer Portal and sign in using your Twitter account credentials.
+
+2. **Create a new app:** Once logged in, navigate to the "**Apps**" section and click on "Create an app."
+
+3. **Provide app details:** Enter the required information such as the app name, description, website URL, and callback URLs. Make sure to specify the callback URL to handle the authentication response.
+
+4. **Create the app:** Click on the "**Create**" button to create your Twitter app.
+
+5. **Retrieve API key and secret:** On the app details page, you will find the API key and secret. Keep these credentials secure as they will be used to configure Twitter Login in Firebase Authentication.
+
+6. **Configure the app permissions:** In the app settings, navigate to the "**Permissions**" tab and enable the necessary permissions required for your application.
+
+7. **Enable Twitter Login in Firebase Console:** Open the Firebase console and select your project.
+
+8. **Enable Twitter as a sign-in provider:** In the left sidebar, click on "**Authentication**" and then select the "**Sign-in method**" tab. Locate the Twitter provider and click on the "**Enable**" toggle switch.
+
+9. **Enter API key and secret:** In the "**Twitter**" section, `enter your API key and secret`, obtained from the Twitter Developer Portal.
+
+10. **Save the settings:** Click on the "**Save**" button to save the Twitter Login configuration.
+
+
 
 ## Routes - Laravel firebase authentication.
 
@@ -147,7 +275,7 @@ These routes provide the necessary endpoints for user registration, login, passw
 ## views - Laravel firebase authentication.
 - Login view - /Modules/Firebase/Resources/views/laravel_auth/login.blade.php
 - Register view - /Modules/Firebase/Resources/views/laravel_auth/register.blade.php
-- Javascript functions - /Modules/Firebase/Resources/views/laravel_auth/layouts/master.blade.php
+- Layout - /Modules/Firebase/Resources/views/laravel_auth/layouts/master.blade.php
 
 ## Middleware - For Verify Token
 
@@ -238,7 +366,8 @@ Laravel routes are grouped under the prefix `'firebase'` and are related to fron
 
 These routes facilitate frontend authentication with Firebase and provide access to the login, registration, and user profile pages.
 
-## views / Script - Firebase SDK authentication for frontend.
+## views - Firebase SDK authentication for frontend.
 - Login view - /Modules/Firebase/Resources/views/auth/login.blade.php
 - Register view - /Modules/Firebase/Resources/views/auth/register.blade.php
-- Javascript functions and layout file - /Modules/Firebase/Resources/views/layouts/master.blade.php
+- Javascript functions for firebase auth and layout file - /Modules/Firebase/Resources/views/layouts/master.blade.php
+

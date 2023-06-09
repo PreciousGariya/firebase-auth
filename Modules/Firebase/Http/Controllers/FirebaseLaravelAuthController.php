@@ -46,6 +46,12 @@ class FirebaseLaravelAuthController extends Controller
     // Registration of user on Server Level
     public function register(Request $request)
     {
+        $request->validate([
+            'name' =>'required|string|max:50',
+            'email' => 'required|string|email',
+            'password' => 'required'
+        ]);
+
         $email = $request->input('email');
         $password = $request->input('password');
         $name = $request->input('name');
@@ -81,6 +87,10 @@ class FirebaseLaravelAuthController extends Controller
     // Login user on Server Level
     public function login(Request $request)
     {
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required'
+        ]);
         $email = $request->input('email');
         $password = $request->input('password');
 
@@ -111,6 +121,9 @@ class FirebaseLaravelAuthController extends Controller
     public function reset(Request $request)
     {
         try {
+            $request->validate([
+                'email' => 'required|string|email',
+            ]);
             $this->auth->sendPasswordResetLink($request->email);
             return redirect('firebase/laravel-auth')->with('success','Reset Password Email Sent successfully!');;;
         } catch (FirebaseException $e) {

@@ -134,79 +134,141 @@
 
         // User Registration
         function register() {
+
+            // Get the input field values
             var name = document.getElementById('name').value;
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
 
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then(function(userCredential) {
-                    console.log("User registered:", user);
-                    // Registration successful, do something with the user object
-                    var user = userCredential.user;
-                    //axios Request to verify Token From Server
-                    // axios.post('/firebase/verify/register', {
-                    //         token: user.xa,
-                    //         'name': name,
-                    //         'email': email,
-                    //         'password': password
+            // Get the input field error status element
+            document.getElementById("name-error").textContent = "";
+            document.getElementById("email-error").textContent = "";
+            document.getElementById("password-error").textContent = "";
 
-                    //     })
-                    //     .then(function(response) {
-                    //         // Request successful, do something with the response
-                    //         console.log(response.data);
-                    //         if (response.data.status == true) {
-                    //             window.location.href = "/";
-                    //         }
-                    //     })
-                    //     .catch(function(error) {
-                    //         // Request failed, handle the error
-                    //         console.error(error);
-                    //     });
-                    //end axios request to verify Token From Server
-                })
-                .catch(function(error) {
-                    // Registration failed, handle the error
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    document.getElementById('error_div').innerHTML = errorMessage;
-                    console.error("Registration error:", errorCode, errorMessage);
-                });
+
+            // Perform validation
+            var isValid = true;
+
+            // Validate name
+            if (name === "") {
+                document.getElementById("name-error").textContent = "Name is required.";
+                isValid = false;
+            }
+
+            // Validate email
+            if (email === "") {
+                document.getElementById("email-error").textContent = "Email is required.";
+                isValid = false;
+            }
+
+            // Validate password
+            if (password === "") {
+                document.getElementById("password-error").textContent = "Password is required.";
+                isValid = false;
+            }
+            // If all validations pass, proceed with login
+            if (isValid) {
+                firebase.auth().createUserWithEmailAndPassword(email, password)
+                    .then(function(userCredential) {
+                         // Registration successful, do something with the user object
+                         var user = userCredential.user;
+                        console.log("User registered:", user);
+                        document.getElementById('user-status').innerHTML = `Register successfully handle the success
+                        Registration as per requirements for more details check console. <p>Email:</p>${user.email}<p></p>
+                        <button class='btn btn-danger mb-2' onclick=logout()>Logout</button>`;
+
+
+                        //axios Request to verify Token From Server
+                        // axios.post('/firebase/verify/register', {
+                        //         token: user.xa,
+                        //         'name': name,
+                        //         'email': email,
+                        //         'password': password
+
+                        //     })
+                        //     .then(function(response) {
+                        //         // Request successful, do something with the response
+                        //         console.log(response.data);
+                        //         if (response.data.status == true) {
+                        //             window.location.href = "/";
+                        //         }
+                        //     })
+                        //     .catch(function(error) {
+                        //         // Request failed, handle the error
+                        //         console.error(error);
+                        //     });
+                        //end axios request to verify Token From Server
+                    })
+                    .catch(function(error) {
+                        // Registration failed, handle the error
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        document.getElementById('error_div').innerHTML = errorMessage;
+                        console.error("Registration error:", errorCode, errorMessage);
+                    });
+            }
         }
 
         // User Login
         function login() {
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
 
-            firebase.auth().signInWithEmailAndPassword(email, password)
-                .then(function(userCredential) {
-                    // Login successful, do something with the user object
-                    var user = userCredential.user;
-                    console.log("User logged in:", user);
-                    //axios request to verify Token From Server
-                    // axios.post('/firebase/verify/login', {
-                    //         token: user.xa,
-                    //     })
-                    //     .then(function(response) {
-                    //         // Request successful, do something with the response
-                    //         console.log(response.data);
-                    //         if (response.data.status == true) {
-                    //             window.location.href = "/";
-                    //         }
-                    //     })
-                    //     .catch(function(error) {
-                    //         // Request failed, handle the error
-                    //         console.error(error);
-                    //     });
-                    // end axios request to verify Token From Server
-                })
-                .catch(function(error) {
-                    // Login failed, handle the error
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    document.getElementById('error_div').innerHTML = errorMessage;
-                    console.error("Login error:", errorCode, errorMessage);
-                });
+            document.getElementById("email-error").textContent = "";
+            document.getElementById("password-error").textContent = "";
+
+            // Get the input field values
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            // Perform validation
+            var isValid = true;
+
+            // Validate email
+            if (email === "") {
+                document.getElementById("email-error").textContent = "Email is required.";
+                isValid = false;
+            }
+
+            // Validate password
+            if (password === "") {
+                document.getElementById("password-error").textContent = "Password is required.";
+                isValid = false;
+            }
+            // If all validations pass, proceed with login
+            if (isValid) {
+                firebase.auth().signInWithEmailAndPassword(email, password)
+                    .then(function(userCredential) {
+                        // Login successful, do something with the user object
+                        var user = userCredential.user;
+                        document.getElementById('user-status').innerHTML = `Logged In success fully handle the success
+                        login as per requirements for more details check console. <p>Email:</p><p>${user.email}</p>
+                        <button class='btn btn-danger mb-2' onclick=logout()>Logout</button>
+                        `
+                        console.log("User logged in:", user);
+                        //axios request to verify Token From Server
+                        // axios.post('/firebase/verify/login', {
+                        //         token: user.xa,
+                        //     })
+                        //     .then(function(response) {
+                        //         // Request successful, do something with the response
+                        //         console.log(response.data);
+                        //         if (response.data.status == true) {
+                        //             window.location.href = "/";
+                        //         }
+                        //     })
+                        //     .catch(function(error) {
+                        //         // Request failed, handle the error
+                        //         console.error(error);
+                        //     });
+                        // end axios request to verify Token From Server
+                    })
+                    .catch(function(error) {
+                        // Login failed, handle the error
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        document.getElementById('error_div').innerHTML = errorMessage;
+                        console.error("Login error:", errorCode, errorMessage);
+                    });
+            }
         }
 
         // User Logout
@@ -214,6 +276,7 @@
             firebase.auth().signOut()
                 .then(function() {
                     console.log("User logged out");
+                    document.getElementById('user-status').innerHTML = `Logout Successfully!</p> `
                     // Logout successful
                     // axios.post('/firebase/verify/logout')
                     //     .then(function(response) {

@@ -15,8 +15,7 @@
                                         <label>Email<span class="text-danger">*</span></label>
                                         <div class="input-group">
                                             <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
-                                            <input type="email" name="email" class="form-control" placeholder="Enter email">
-
+                                            <input type="email" name="email" class="form-control" placeholder="Enter email" required>
                                         </div>
                                     </div>
                                     <div class="col-12">

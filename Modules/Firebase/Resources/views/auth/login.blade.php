@@ -17,6 +17,7 @@
                                             <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
                                             <input type="email" id="email" name="email" class="form-control" placeholder="Enter email" required>
                                         </div>
+                                        <span id="email-error" class="error text-danger"></span>
                                     </div>
 
                                     <div class="col-12">
@@ -25,7 +26,9 @@
                                             <div class="input-group-text"><i class="bi bi-lock-fill"></i></div>
                                             <input type="password" id="password" name="password" class="form-control" placeholder="Enter Password" required>
                                         </div>
+                                        <span id="password-error" class="error text-danger"></span>
                                     </div>
+
                                     <div class="col-12">
                                         <button type="button" onclick="login()" class="btn btn-success px-4 float-end mt-4 mx-2"> Login</button>
                                         <button type="button" onclick="googleSignIn()" class="btn btn-danger px-4 float-start mt-4 mx-2"><i class="bi bi-google"></i> Login</button>
